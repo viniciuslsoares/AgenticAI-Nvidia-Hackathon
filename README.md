@@ -1,4 +1,4 @@
-# Nvidia Hackathon Crew
+# Nvidia Hackathon Project
 
 Welcome to the NvidiaHackathon Crew project, powered by [crewAI](https://crewai.com). 
 
