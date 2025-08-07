@@ -1,0 +1,82 @@
+sourcing_task:
+  description: >
+    Search online to identify the most promising startup in the specified sector.
+    Focus on emerging startups with recent traction, clear innovation, and high-growth potential.
+
+    Target Sector: {sector}
+  expected_output: >
+    A markdown report with selected startup name, with justification (including links and key info such as product, market, funding).
+  output_file: outputs/sourcing_report.md
+  agent: sourcing_analyst
+  tools:
+    - SerperDevTool
+
+financial_due_diligence:
+  description: >
+    Evaluate the startup’s financials: funding rounds, valuation, revenue, growth, and key investors.
+
+  context: "Startup: {sourcing_task}"
+  expected_output: >
+    A markdown file with the financial report with funding history, valuation, revenue insights and financial red flags.
+  output_file: outputs/financial_report.md
+  agent: financial_investigator
+  tools:
+    - SerperDevTool
+
+legal_due_diligence:
+  description: >
+    Investigate legal risks: lawsuits, compliance issues, regulatory or IP-related concerns.
+
+  context: "Startup: {sourcing_task}"
+  expected_output: >
+    A markdown file with legal risk report identifying any known or potential legal problems.
+  output_file: outputs/legal_report.md
+  agent: legal_analyst
+  tools:
+    - SerperDevTool
+
+product_analysis:
+  description: >
+    Evaluate the startup's product and technology: innovation, technical maturity, execution quality, scalability.
+
+  context: "Startup: {sourcing_task}"
+  expected_output: >
+    A markdown report with P=product and tech report highlighting key differentiators and scalability.
+  output_file: outputs/product_and_tech_report.md
+  agent: product_expert
+  tools:
+    - SerperDevTool
+
+market_analysis:
+  description: >
+    Analyze the startup's market: TAM (total addressable market), growth, competition, and positioning.
+
+  context: "Startup: {sourcing_task}"
+  expected_output: >
+    A markdown file with market report with market size, competitors, and startup positioning.
+  output_file: outputs/matket_analysis.md 
+  agent: market_strategist
+  tools:
+    - SerperDevTool
+
+final_memo:
+  description: >
+    Based on all due diligence reports, write the final investment memo with a clear recommendation.
+  context: >
+    Finance Report:
+    {financial_due_diligence}
+
+    Legal Report:
+    {legal_due_diligence}
+
+    Product Report:
+    {product_analysis}
+
+    Market Report:
+    {market_analysis}
+  expected_output: >
+    A markdown file with the investment memo with: Executive Summary, Startup Overview,
+    Financial, Legal, Product, Market analysis, and a final recommendation.
+  output_file: outputs/final_memo.md
+  agent: investment_partner
+  output_key: final_memo
